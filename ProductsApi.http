@@ -1,0 +1,21 @@
+@ProductsApi_HostAddress = http://localhost:5058
+@token = {{login.response.body.token}}
+
+### Login (no token required)
+# @name login
+POST {{ProductsApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### Products without token — expect 401
+GET {{ProductsApi_HostAddress}}/api/products
+Accept: application/json
+
+### Products with token
+GET {{ProductsApi_HostAddress}}/api/products
+Accept: application/json
+Authorization: Bearer {{token}}
